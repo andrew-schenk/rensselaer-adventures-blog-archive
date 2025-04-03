@@ -106,28 +106,33 @@ async function getPostTitles() {
     const titleRegex = /<meta content=['"]([^'"]+)['"] property='og:title'\/>/
     const dateRegex = /<span>([^<]+, \w+ \d{1,2}, \d{4})<\/span>/;
 
-        blogPosts.forEach(async (post) => {
+        blogPosts = await Promise.all(blogPosts.map(async (post) => {
             try {
             const data = await readFile(post.filepath, 'utf8');
             const title = data.match(titleRegex)
            // console.log(title[1]);
 
             if (title[1]) {
-                post.title= title[1];
+                // console.log(title[1]);
+                post.title = title[1];
             }
 
 
             const match = data.match(dateRegex);
             if (match) {
                 // console.log(match[1]);  // Output: Tuesday, November 25, 2008
-                post.date= match[1];
+                post.date = match[1];
             }
 
+            return post;
         } catch (err) {
             console.error(err);
+            console.log(post);
         }
-        })
+        }))
         //  console.log(blogPosts[0].filepath)
+
+        // console.log(modifiedArr[0]);
 }
 
 async function parseData() {
