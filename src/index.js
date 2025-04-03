@@ -1,4 +1,4 @@
-import { readdir, opendir, stat } from 'node:fs/promises';
+import { readdir, opendir, stat, unlink } from 'node:fs/promises';
 
 const BASE_PATH = "rensselaeradventures.blogspot.com";
 
@@ -83,6 +83,17 @@ async function purgeDuplicateEntries() {
      console.log(duplicates.map(w => w.filepath));
     //console.log(duplicates.length)
 
+    try {
+
+        duplicates.forEach(async dupToDelete => {
+            await unlink(dupToDelete.filepath)
+        }
+    );
+        
+
+    } catch (error) {
+        console.error(error)
+    }
 
 
     // console.dir(duplicates.map(w => w.filename), {'maxArrayLength': null});
