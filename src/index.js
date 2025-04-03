@@ -1,4 +1,4 @@
-import { readdir, opendir, stat, unlink } from 'node:fs/promises';
+import { readdir, opendir, stat, unlink, readFile } from 'node:fs/promises';
 
 const BASE_PATH = "rensselaeradventures.blogspot.com";
 
@@ -54,7 +54,7 @@ async function readMonthsForYears() {
     } catch (err) {
         console.error(err);
     }
-    // console.log(blogPosts);
+
 }
 
 async function purgeDuplicateEntries() {
@@ -99,11 +99,45 @@ async function purgeDuplicateEntries() {
     // console.dir(duplicates.map(w => w.filename), {'maxArrayLength': null});
 }
 
+async function getPostTitles() {
+    // console.log(blogPosts);
+
+
+    const titleRegex = /<meta content=['"]([^'"]+)['"] property='og:title'\/>/
+    const dateRegex = /<span>([^<]+, \w+ \d{1,2}, \d{4})<\/span>/;
+
+        blogPosts.forEach(async (post) => {
+            try {
+            const data = await readFile(post.filepath, 'utf8');
+            const title = data.match(titleRegex)
+           // console.log(title[1]);
+
+            if (title[1]) {
+                post.title= title[1];
+            }
+
+
+            const match = data.match(dateRegex);
+            if (match) {
+                // console.log(match[1]);  // Output: Tuesday, November 25, 2008
+                post.date= match[1];
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+        })
+        //  console.log(blogPosts[0].filepath)
+}
+
 async function parseData() {
     await readYears();
     await readMonthsForYears();
 
-    await purgeDuplicateEntries();
+    // await purgeDuplicateEntries();
+    await getPostTitles();
+
+    console.log(blogPosts)
 }
 
 
