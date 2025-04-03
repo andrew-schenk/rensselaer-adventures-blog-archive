@@ -54,33 +54,33 @@ async function readMonthsForYears() {
     } catch (err) {
         console.error(err);
     }
-    //  console.log(blogPosts);
+    // console.log(blogPosts);
 }
 
 async function purgeDuplicateEntries() {
 
     // console.log(blogPosts);
 
+    console.log('scanning for duplicates...');
 
     let duplicates = [];
 
     blogPosts.forEach(async (post) => {
 
-        post.filesize;
 
         if(duplicates.indexOf(post) === -1) {
 
+            //console.log(post.filename.replace('.html', ''));
+
             const dupes = blogPosts.filter( (conditionalPost) => 
-                conditionalPost.filesize === post.filesize && 
-            conditionalPost.filename !== post.filename && 
-            conditionalPost.year === post.year && conditionalPost.month === post.month)
+            conditionalPost.filepath.startsWith(post.filepath.replace('.html', '')) && conditionalPost.filepath !== post.filepath)
 
             duplicates = duplicates.concat(dupes);
         }
 
     });
 
-     console.log(duplicates.map(w => w.filepath));
+    console.log(duplicates.map(w => w.filepath));
     //console.log(duplicates.length)
 
     try {
