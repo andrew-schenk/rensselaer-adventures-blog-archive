@@ -1,0 +1,13 @@
+{
+  "name": "rensselaer_adventures",
+  "version": "1.0.0",
+  "description": "This is a static archive of the \"Rensselaer Adventures\" blog, which documented events and interesting information about Rensselaer, Indiana and the surrounding area from 2008 to 2025.",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
