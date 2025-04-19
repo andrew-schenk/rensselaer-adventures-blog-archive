@@ -1,0 +1,17 @@
+# dependencies
+/node_modules
+
+# next.js build output
+/.next
+/out
+
+# production .env
+/.env.production
+
+# misc
+.DS_Store
+*.log
+
+# ignore next-env.d.ts, but keep the types folder
+!types/
+/next-env.d.ts
