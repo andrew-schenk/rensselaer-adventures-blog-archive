@@ -142,7 +142,7 @@ async function parseData() {
     // await purgeDuplicateEntries();
     await getPostTitles();
 
-    console.log(blogPosts)
+    console.log(JSON.stringify(blogPosts))
 }
 
 
