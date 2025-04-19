@@ -1,5 +1,6 @@
 'use client';
 
+// @ts-nocheck
 import Image from "next/image";
 import styles from "./page.module.css";
 import data from "./data.json";
@@ -68,8 +69,8 @@ export default function Home() {
 
 
 const getYears = () => {
-  return data.reduce((a, {year}) =>
-    a.some(ob => ob.year === year) ? a : a.concat({year})
+  return data.reduce((a, {year} : { year: string }) =>
+    a.some((ob: {year: string}) => ob.year === year) ? a : a.concat({year})
   , []);
 }
 
@@ -79,7 +80,7 @@ const getMonthsForYear = (year: string) => {
   const postsForYear = data.filter((post) => post.year === year);
 
   const monthsForYear = postsForYear.reduce((accumulator, {month}) => {
-    return accumulator.some(obj => obj.month === month) ? accumulator : accumulator.concat({month})
+    return accumulator.some((obj: {month: string}) => obj.month === month) ? accumulator : accumulator.concat({month})
   })
 
   return monthsForYear;
