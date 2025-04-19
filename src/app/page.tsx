@@ -4,93 +4,24 @@ import data from "./data.json";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className={styles.main}>
+      <Image
+        src="/blogger.googleusercontent.com/img/a/AVvXsEiC_fBt1fxP8LCiOseuw0tHa6BMkuvbLKbn-arCBpakjoxX5QuUMxqzVO4UEwHLxqI_XZ2VcHpallG6vXNKoIAGmbG-EZlNM1M6WBWuxp3n6UEO27rmKBCB1QA2DmtC6mJwCOvqH3dJVpiQI93hZ6dA9wI_9-Xefi-Qr7Jxy6UsQYsU3NBETS_-46jy%3ds983.9"
+        width={983}
+        height={494}
+        alt="Rensselaer Adventures"
+        style={{
+          width: '100%',
+          height: 'auto',
+          maxHeight: 494,
+          objectFit: 'contain',
+        }}
+      />
+      <div className={styles.description}>
+        This blog reports events and interesting tidbits from Rensselaer, Indiana and the surrounding area.
+      </div>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href={data[0].filepath}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Test link
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div className={styles.title}>Archive</div>
     </div>
   );
 }
