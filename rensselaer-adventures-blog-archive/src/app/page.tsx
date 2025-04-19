@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import data from "./data.json";
 
 export default function Home() {
   return (
@@ -37,12 +38,12 @@ export default function Home() {
             Deploy now
           </a>
           <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href={data[0].filepath}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.secondary}
           >
-            Read our docs
+            Test link
           </a>
         </div>
       </main>
