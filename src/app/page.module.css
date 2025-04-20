@@ -42,25 +42,24 @@
   border-left: 1px dashed #666666;
 }
 .posts {
-  display: none;
   margin-left: 40px;
   padding: 5px;
 }
-.post-link {
+.postlink {
   display: block;
   padding: 5px;
   margin: 3px 0;
   text-decoration: none;
   color: #000000;
 }
-.post-link:hover {
+.postlink:hover {
   text-decoration: underline;
   color: #c00;
 }
-.post-link:visited {
+.postlink:visited {
   color: #800080;
 }
-.post-date {
+.postdate {
   color: #666666;
   font-size: 0.9em;
   margin-right: 10px;

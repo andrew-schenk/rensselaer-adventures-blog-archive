@@ -11,10 +11,7 @@ export default function Home() {
 
   const [activeExpandables, setActiveExpandables] = useState<{years: string[], yearsAndMonths: string[]}>({years: [], yearsAndMonths: []});
 
-  const toggleSection = ( year: string ) => {
-    console.log(year);
-  
-    
+  const toggleSection = ( year: string ) => {    
     if ( !isYearActive(year) ) {
       const tmpArrYears = [...activeExpandables.years];
       tmpArrYears.push(year);
@@ -30,6 +27,19 @@ export default function Home() {
 
   const toggleMonthSection = (year: string, month: string) => {
 
+    console.log(year, month)
+    console.log(year+month)
+    if ( !isYearAndMonthActive(year, month) ) {
+      const tmpArrYearsAndMonths = [...activeExpandables.yearsAndMonths];
+      tmpArrYearsAndMonths.push(year+month);
+      const tmpExpandables = { years: activeExpandables.years, yearsAndMonths: tmpArrYearsAndMonths };
+      setActiveExpandables(tmpExpandables);
+    } else {
+      let tmpArrYearsAndMonths = [...activeExpandables.yearsAndMonths];
+      tmpArrYearsAndMonths = tmpArrYearsAndMonths.filter((tmpYear) => tmpYear !== year+month);
+      const tmpExpandables = { years: activeExpandables.years, yearsAndMonths: tmpArrYearsAndMonths };
+      setActiveExpandables(tmpExpandables);
+    } 
   }
 
   const isYearActive = (year: string): boolean => {
@@ -37,6 +47,9 @@ export default function Home() {
   }
   
   const isYearAndMonthActive = (year: string, month: string): boolean => {
+
+    console.log('isYearAndMonthActive', activeExpandables.yearsAndMonths);
+
     return activeExpandables.yearsAndMonths.indexOf(year+month) >= 0;
   }
 
@@ -63,18 +76,36 @@ export default function Home() {
       {getYears().map((year: string) => {
         
         return (
-          <div>
-            <div className={`${styles.year} ${isYearActive(year.year) ? styles.active : ''}`} onClick={() => toggleSection(year.year)} key={year.year}>{year.year}</div>
+          <div key={year.year}>
+            <div className={`${styles.year} ${isYearActive(year.year) ? styles.active : ''}`} onClick={() => toggleSection(year.year)}>{year.year}</div>
             {isYearActive(year.year) ?
             <div className={styles.months}>
               {
               getMonthsForYear(year.year).map((month: string) => {
 
                 return (
-                  <div className={styles.month} key={month.month} onClick={() => toggleMonthSection(year, month)}>{`${translateMonthNumberToString(month.month)} ${year.year}`}</div>
-                  // <div class="posts">
-                  //     <!-- January 2009 posts would be listed here -->
-                  // </div>
+                  <>
+                  <div className={`${styles.month} ${isYearAndMonthActive(year.year, month.month) ? styles.active : ''}`} 
+                       onClick={() => toggleMonthSection(year.year, month.month)}
+                       key={year.year + month.month}
+                  >
+                    {`${translateMonthNumberToString(month.month)} ${year.year}`}
+                  </div>
+                  
+                  { isYearAndMonthActive(year.year, month.month) ? (
+                    <div className={styles.posts}>
+                      {getPostsForYearAndMonth(year.year, month.month).map( (post) => {
+                        return (
+                          <a href={post.filepath} className={styles.postlink}>
+                            <span className={styles.postdate}>{post.date}</span>{post.title}
+                          </a>
+                        )
+                      })}
+                    </div>
+                  ) : null
+                  }
+                
+                 </> 
                 )
               })
               }
@@ -117,4 +148,21 @@ const translateMonthNumberToString = (month: string) => {
   const monthInt = Number.parseInt(month);
 
   return months[monthInt-1];
+}
+
+
+const getPostsForYearAndMonth = (year: string, month: string) => {
+
+
+  const postsForYearAndMonth = data.filter((post) => post.year === year && post.month === month);
+
+  postsForYearAndMonth.sort((a, b) => {
+
+    const aDate = new Date(a.date);
+    const bDate = new Date(b.date);
+    return aDate > bDate;
+  })
+
+
+  return postsForYearAndMonth ?? [];
 }
