@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <Image
-        src="/blogger.googleusercontent.com/img/a/AVvXsEiC_fBt1fxP8LCiOseuw0tHa6BMkuvbLKbn-arCBpakjoxX5QuUMxqzVO4UEwHLxqI_XZ2VcHpallG6vXNKoIAGmbG-EZlNM1M6WBWuxp3n6UEO27rmKBCB1QA2DmtC6mJwCOvqH3dJVpiQI93hZ6dA9wI_9-Xefi-Qr7Jxy6UsQYsU3NBETS_-46jy%3ds983.9"
+        src="/Banner.jpg"
         width={983}
         height={494}
         alt="Rensselaer Adventures"

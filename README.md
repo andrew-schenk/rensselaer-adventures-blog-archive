@@ -6,11 +6,11 @@ This is a static archive of the "Rensselaer Adventures" blog, which documented e
 
 A comprehensive table of contents has been created to make browsing this archive easier:
 
-- [Browse the Table of Contents](table-of-contents.html)
-
 ## About This Archive
 
 This archive was created using HTTrack Website Copier to preserve the content of the Rensselaer Adventures blog. The table of contents page provides an easy way to navigate through all blog posts organized by year and month.
+
+There is a light web app built with NextJS to provide the logic to organize the blog data.
 
 ## Features of the Table of Contents
 
@@ -22,4 +22,4 @@ This archive was created using HTTrack Website Copier to preserve the content of
 
 ## Usage
 
-Simply open the `table-of-contents.html` file in any web browser to start browsing the archive. Click on years and months to expand/collapse them and view the posts from that time period.
+Navigate to https://rensselaer-adventures-blog-archive.vercel.app for the latest version. You can also download this repository and build an offline copy by running `npm next build`. This offline copy will require the proper developer tools to be setup in accordance to NextJS.
