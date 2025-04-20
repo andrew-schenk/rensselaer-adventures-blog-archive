@@ -14,20 +14,30 @@ export default function Home() {
   const toggleSection = ( year: string ) => {
     console.log(year);
   
-    const tmpArrYears = [...activeExpandables.years];
-    tmpArrYears.push(year);
-    const tmpExpandables = { years: tmpArrYears, yearsAndMonths: activeExpandables.yearsAndMonths };
-    setActiveExpandables(tmpExpandables);
+    
+    if ( !isYearActive(year) ) {
+      const tmpArrYears = [...activeExpandables.years];
+      tmpArrYears.push(year);
+      const tmpExpandables = { years: tmpArrYears, yearsAndMonths: activeExpandables.yearsAndMonths };
+      setActiveExpandables(tmpExpandables);
+    } else {
+      let tmpArrYears = [...activeExpandables.years];
+      tmpArrYears = tmpArrYears.filter((tmpYear) => tmpYear !== year);
+      const tmpExpandables = { years: tmpArrYears, yearsAndMonths: activeExpandables.yearsAndMonths };
+      setActiveExpandables(tmpExpandables);
+    } 
+  }
+
+  const toggleMonthSection = (year: string, month: string) => {
+
   }
 
   const isYearActive = (year: string): boolean => {
-
     return activeExpandables.years.indexOf(year) >= 0;
   }
   
   const isYearAndMonthActive = (year: string, month: string): boolean => {
-  
-    return false;
+    return activeExpandables.yearsAndMonths.indexOf(year+month) >= 0;
   }
 
 
@@ -56,7 +66,19 @@ export default function Home() {
           <div>
             <div className={`${styles.year} ${isYearActive(year.year) ? styles.active : ''}`} onClick={() => toggleSection(year.year)} key={year.year}>{year.year}</div>
             {isYearActive(year.year) ?
-            <div className={styles.months}></div>
+            <div className={styles.months}>
+              {
+              getMonthsForYear(year.year).map((month: string) => {
+
+                return (
+                  <div className={styles.month} key={month.month} onClick={() => toggleMonthSection(year, month)}>{`${translateMonthNumberToString(month.month)} ${year.year}`}</div>
+                  // <div class="posts">
+                  //     <!-- January 2009 posts would be listed here -->
+                  // </div>
+                )
+              })
+              }
+            </div>
             : null}
             
           </div>
@@ -81,8 +103,18 @@ const getMonthsForYear = (year: string) => {
 
   const monthsForYear = postsForYear.reduce((accumulator, {month}) => {
     return accumulator.some((obj: {month: string}) => obj.month === month) ? accumulator : accumulator.concat({month})
-  })
+  }, [])
+
+
+  monthsForYear.sort((a, b) => (a.month > b.month));
 
   return monthsForYear;
 }
 
+const translateMonthNumberToString = (month: string) => {
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  const monthInt = Number.parseInt(month);
+
+  return months[monthInt-1];
+}
